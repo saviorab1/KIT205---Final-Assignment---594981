@@ -20,5 +20,8 @@ int main() {
 
     // Print the adjacency list representation of the graph
     printGraph(graph);
+    // Find the shortest path from vertex 0
+    printf("\nDijkstra's Algorithm:\n");
+    dijkstra(graph, 0);
     return 0;
 }

@@ -40,4 +40,6 @@ void addEdge(Graph* graph, int src, int dest, float weight);
 // Function to print the graph
 void printGraph(Graph* graph);
 
+// Function to find the shortest path using Dijkstra's algorithm
+void dijkstra(Graph* graph, int src);
 #endif

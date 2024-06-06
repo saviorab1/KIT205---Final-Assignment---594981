@@ -51,3 +51,47 @@ void printGraph(Graph* graph) {
         printf("\n");
     }
 }
+
+// Utility function to find the vertex with minimum distance value
+int minDistance(float dist[], bool sptSet[], int V) {
+    float min = FLT_MAX;
+    int min_index;
+    for (int v = 0; v < V; v++)
+        if (sptSet[v] == false && dist[v] <= min)
+            min = dist[v], min_index = v;
+    return min_index;
+}
+
+// Function to print the constructed distance array
+void printSolution(float dist[], int V) {
+    printf("Vertex \t Distance from Source\n");
+    for (int i = 0; i < V; i++)
+        printf("%d \t\t %f\n", i, dist[i]);
+}
+
+// Function to implement Dijkstra's shortest path algorithm for a graph
+void dijkstra(Graph* graph, int src) {
+    int V = graph->V;
+    float dist[MAX_VERTICES];
+    bool sptSet[MAX_VERTICES];
+
+    for (int i = 0; i < V; i++) {
+        dist[i] = FLT_MAX;
+        sptSet[i] = false;
+    }
+
+    dist[src] = 0;
+
+    for (int count = 0; count < V - 1; count++) {
+        int u = minDistance(dist, sptSet, V);
+        sptSet[u] = true;
+
+        for (AdjListNode* pCrawl = graph->array[u].head; pCrawl != NULL; pCrawl = pCrawl->next) {
+            int v = pCrawl->dest;
+            if (!sptSet[v] && dist[u] != FLT_MAX && dist[u] + pCrawl->weight < dist[v])
+                dist[v] = dist[u] + pCrawl->weight;
+        }
+    }
+
+    printSolution(dist, V);
+}
