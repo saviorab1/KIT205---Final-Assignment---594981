@@ -8,12 +8,12 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define MAX_VERTICES 332 // Adjusted for the specific dataset
+#define MAX_VERTICES 100 // Define a maximum number of vertices
 
 // Define the structure for an adjacency list node
 typedef struct AdjListNode {
     int dest;
-    float weight;
+    int weight;
     struct AdjListNode* next;
 } AdjListNode;
 
@@ -29,17 +29,15 @@ typedef struct Graph {
 } Graph;
 
 // Function to create a new adjacency list node
-AdjListNode* newAdjListNode(int dest, float weight);
+AdjListNode* newAdjListNode(int dest, int weight);
 
 // Function to create a graph with V vertices
 Graph* createGraph(int V);
 
 // Function to add an edge to a graph
-void addEdge(Graph* graph, int src, int dest, float weight);
+void addEdge(Graph* graph, int src, int dest, int weight);
 
 // Function to print the graph
 void printGraph(Graph* graph);
 
-// Function to find the shortest path using Dijkstra's algorithm
-void dijkstra(Graph* graph, int src);
 #endif

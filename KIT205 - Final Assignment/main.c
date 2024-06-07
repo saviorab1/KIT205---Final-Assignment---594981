@@ -18,10 +18,8 @@ int main() {
     addEdge(graph, 4, 3, 7);
     addEdge(graph, 4, 5, 4);
 
-    // Print the adjacency list representation of the graph
+    // Print the adjacency list representation of the above graph
     printGraph(graph);
-    // Find the shortest path from vertex 0
-    printf("\nDijkstra's Algorithm:\n");
-    dijkstra(graph, 0);
+
     return 0;
 }
