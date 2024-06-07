@@ -93,3 +93,66 @@ void dijkstra(Graph* graph, int src) {
 
     printSolution(dist, V);
 }
+
+// Function to perform a BFS search for Ford-Fulkerson
+bool bfs(int rGraph[MAX_VERTICES][MAX_VERTICES], int V, int s, int t, int parent[]) {
+    bool visited[MAX_VERTICES];
+    for (int i = 0; i < V; i++)
+        visited[i] = false;
+
+    int queue[MAX_VERTICES], front = 0, rear = 0;
+    queue[rear++] = s;
+    visited[s] = true;
+    parent[s] = -1;
+
+    while (front < rear) {
+        int u = queue[front++];
+        for (int v = 0; v < V; v++) {
+            if (!visited[v] && rGraph[u][v] > 0) {
+                queue[rear++] = v;
+                parent[v] = u;
+                visited[v] = true;
+            }
+        }
+    }
+
+    return visited[t];
+}
+
+// Function to implement Ford-Fulkerson algorithm for finding the maximum flow
+int fordFulkerson(Graph* graph, int s, int t) {
+    int u, v;
+    int V = graph->V;
+    int rGraph[MAX_VERTICES][MAX_VERTICES];
+
+    for (u = 0; u < V; u++)
+        for (v = 0; v < V; v++)
+            rGraph[u][v] = 0;
+
+    for (u = 0; u < V; u++) {
+        for (AdjListNode* pCrawl = graph->array[u].head; pCrawl != NULL; pCrawl = pCrawl->next) {
+            rGraph[u][pCrawl->dest] = pCrawl->weight;
+        }
+    }
+
+    int parent[MAX_VERTICES];
+    int max_flow = 0;
+
+    while (bfs(rGraph, V, s, t, parent)) {
+        int path_flow = INT_MAX;
+        for (v = t; v != s; v = parent[v]) {
+            u = parent[v];
+            path_flow = path_flow < rGraph[u][v] ? path_flow : rGraph[u][v];
+        }
+
+        for (v = t; v != s; v = parent[v]) {
+            u = parent[v];
+            rGraph[u][v] -= path_flow;
+            rGraph[v][u] += path_flow;
+        }
+
+        max_flow += path_flow;
+    }
+
+    return max_flow;
+}

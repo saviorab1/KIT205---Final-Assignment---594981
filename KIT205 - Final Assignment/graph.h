@@ -43,4 +43,8 @@ void printGraph(Graph* graph);
 // Function to find the shortest path using Dijkstra's algorithm
 void dijkstra(Graph* graph, int src);
 
+// Function to find the maximum flow using Ford-Fulkerson algorithm
+int fordFulkerson(Graph* graph, int s, int t);
+
+
 #endif

@@ -21,5 +21,9 @@ int main() {
     // Print the adjacency list representation of the above graph
     printGraph(graph);
 
+    // Find the maximum flow from vertex 0 to vertex 5
+    int max_flow = fordFulkerson(graph, 0, 5);
+    printf("The maximum possible flow is %d\n", max_flow);
+
     return 0;
 }
