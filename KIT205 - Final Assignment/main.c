@@ -1,6 +1,8 @@
 /*KIT205
 @author LE HOANG ANH DINH
 @studentID 594981*/
+#include <stdio.h>
+#include "graph.h"
 int main() {
     const char* filename = "inf-USAir97.mtx";
     Graph* graph = parseMTXFile(filename);
@@ -16,6 +18,7 @@ int main() {
     printf("\nFord-Fulkerson Algorithm:\n");
     int max_flow = fordFulkerson(graph, 0, 5);
     printf("The maximum possible flow is %d\n", max_flow);
-
+    
+    getchar();
     return 0;
 }
